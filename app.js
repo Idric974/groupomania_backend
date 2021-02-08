@@ -23,14 +23,15 @@ app.use((req, res, next) => {
 
 /*Module de connexion à la base de données.*/
 const db = require("./models");
-db.sequelize.sync();
+db.sequelize.sync({
+  force: true,
+});
 /******************************************************************************************/
 
 /*Transformer le corps de la requête en objet JSON.*/
 app.use(bodyParser.json());
 /******************************************************************************************/
 
-app.use("/api/auth", userRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", userRoutes);
 app.use("/api/comments", userRoutes);
