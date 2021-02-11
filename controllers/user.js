@@ -50,3 +50,36 @@ exports.login = async (req, res, next) => {
     return res.status(500).json({ error });
   }
 };
+
+//* ✅ 👉 Afficher un profil d'un utilisateur.
+
+exports.user = async (req, res, next) => {
+  const user = await User.findOne({
+    where: {
+      alias: req.body.alias,
+      email: req.body.email,
+      firstname: req.body.firstname,
+      name: req.body.name,
+    },
+  });
+  if (user === null) {
+    console.log("Not found!");
+  } else {
+    console.log(user instanceof User);
+    console.log(user.title);
+  }
+};
+
+//* ✅ 👉 mettre à jour le profil.
+exports.user = async (req, res, next) => {
+  const profil = await User.update(
+    { lastName: "Doe" },
+    {
+      where: {
+        lastName: null,
+      },
+    }
+  );
+};
+
+//* ✅ 👉 Supprimer un profil.

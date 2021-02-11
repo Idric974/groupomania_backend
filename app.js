@@ -7,7 +7,7 @@ const userRoutes = require("./routes/User");
 
 const app = express();
 
-/*Middleware général sans routes spécifique et appliqué à toutes les requêtes du serveur.*/
+//* ✅ 👉 Middleware général sans routes spécifique et appliqué à toutes les requêtes du serveur.
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -21,16 +21,14 @@ app.use((req, res, next) => {
   next();
 });
 
-/*Module de connexion à la base de données.*/
+//* ✅ 👉 Module de connexion à la base de données.
 const db = require("./models");
 db.sequelize.sync({
   force: true,
 });
-/******************************************************************************************/
 
-/*Transformer le corps de la requête en objet JSON.*/
+//* ✅ 👉 Transformer le corps de la requête en objet JSON.*/
 app.use(bodyParser.json());
-/******************************************************************************************/
 
 app.use("/api/user", userRoutes);
 app.use("/api/post", userRoutes);

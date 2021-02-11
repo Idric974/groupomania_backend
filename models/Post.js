@@ -10,17 +10,8 @@ module.exports = (sequelize, Sequelize) => {
       unique: true,
       allowNull: false,
     },
-    date: {
-      type: Sequelize.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    idUser: {
-      type: Sequelize.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    idComment: {
+
+    userId: {
       type: Sequelize.STRING,
       unique: true,
       allowNull: false,
