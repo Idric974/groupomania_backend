@@ -1,10 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
 const path = require("path");
-
 const userRoutes = require("./routes/User");
-
 const app = express();
 
 //* ✅ 👉 Middleware général sans routes spécifique et appliqué à toutes les requêtes du serveur.
@@ -30,6 +27,7 @@ db.sequelize.sync({
 //* ✅ 👉 Transformer le corps de la requête en objet JSON.*/
 app.use(bodyParser.json());
 
+//* ✅ 👉 Routes pricipales de l'application
 app.use("/api/user", userRoutes);
 app.use("/api/post", userRoutes);
 app.use("/api/comments", userRoutes);

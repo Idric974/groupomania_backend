@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const db = require("../models");
 const User = db.users;
 
+//* ✅ 👉 Créer un user.
 exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
@@ -26,7 +27,9 @@ exports.signup = (req, res, next) => {
       return res.status(500).json({ error });
     });
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Connexion user.
 exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
@@ -50,10 +53,11 @@ exports.login = async (req, res, next) => {
     return res.status(500).json({ error });
   }
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher un profil d'un utilisateur.
 
-exports.user = async (req, res, next) => {
+exports.showUser = async (req, res, next) => {
   const user = await User.findOne({
     where: {
       alias: req.body.alias,
@@ -69,9 +73,10 @@ exports.user = async (req, res, next) => {
     console.log(user.title);
   }
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 mettre à jour le profil.
-exports.user = async (req, res, next) => {
+exports.upDateOneUser = async (req, res, next) => {
   const profil = await User.update(
     { lastName: "Doe" },
     {
@@ -81,5 +86,17 @@ exports.user = async (req, res, next) => {
     }
   );
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Supprimer un profil.
+exports.destroyOneUser = async (req, res, next) => {
+  await User.destroy({
+    where: {
+      alias: req.body.alias,
+      email: req.body.email,
+      firstname: req.body.firstname,
+      name: req.body.name,
+    },
+  });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

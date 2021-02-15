@@ -5,10 +5,10 @@ const postCtrl = require("../controllers/post");
 const auth = require("../middleware/auth");
 const multer = require("../middleware/multer-config");
 
-router.post("/", auth, multer, postCtrl.createPost);
-router.get("/", auth, postCtrl.getAllPost);
-router.get("/:id", auth, postCtrl.getOnePost);
-router.put("/:id", auth, multer, postCtrl.modifyPost);
-router.delete("/:id", auth, postCtrl.deletePost);
+router.post("/createPost", auth, multer, postCtrl.createPost);
+router.get("/readPost", auth, postCtrl.readPost);
+router.get("/readAllPost", auth, postCtrl.readAllPost);
+router.put("/updatePost", auth, multer, postCtrl.updatePost);
+router.delete("destroyPost", auth, postCtrl.deletePost);
 
 module.exports = router;
