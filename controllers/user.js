@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const db = require("../models");
 const User = db.users;
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Créer un user.
 exports.signup = (req, res, next) => {
@@ -58,20 +59,15 @@ exports.login = async (req, res, next) => {
 //* ✅ 👉 Afficher un profil d'un utilisateur.
 
 exports.showUser = async (req, res, next) => {
-  const user = await User.findOne({
-    where: {
-      alias: req.body.alias,
-      email: req.body.email,
-      firstname: req.body.firstname,
-      name: req.body.name,
-    },
-  });
-  if (user === null) {
-    console.log("Not found!");
-  } else {
-    console.log(user instanceof User);
-    console.log(user.title);
-  }
+  const userId = req.body.userId;
+
+  // const user = await User.findOne({ where: { id: userId } });
+  // if (user === null) {
+  //   console.log("Not found!");
+  // } else {
+  //   console.log(user instanceof User);
+  //   console.log(user.title);
+  // }
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 

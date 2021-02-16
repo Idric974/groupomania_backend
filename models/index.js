@@ -8,7 +8,7 @@ const sequelize = new Sequelize("groupomania", "root", "Clement044835", {
 sequelize
   .authenticate()
   .then(() => {
-    console.log("=============> Connexion à la base de données OK 😃 !!!.");
+    console.log("✅ =============> Connexion à la base de données OK 😃 !!!.");
   })
   .catch((err) => {
     console.error(
