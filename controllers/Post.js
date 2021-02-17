@@ -1,6 +1,5 @@
 //* ✅ 👉 Paramètres.
 const db = require("../models");
-
 const User = db.users;
 const Post = db.posts;
 
@@ -22,20 +21,17 @@ exports.createPost = (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher un poste.
-exports.readPost = async (req, res, next) => {
-  const project = await Project.findOne({
-    where: {
-      title: req.body.title,
-      content: req.body.content,
-      userId: req.body.objJson,
-    },
-  });
-  if (project === null) {
-    console.log("Not found!");
-  } else {
-    console.log(project instanceof Project);
-    console.log(project.title);
-  }
+exports.findOne = async (req, res) => {
+  const post = req.params.id;
+  Post.findByPk(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "error",
+      });
+    });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
@@ -51,7 +47,7 @@ exports.readAllPosts = async (req, res, next) => {
     order: [["createdAt", "DESC"]],
   }).then((posts) => {
     if (!posts) {
-      return res.status(404).json({ error: "Pas de post" });
+      return res.status(404).json({ error: "Pas de poste trouvé" });
     }
     res.status(200).json({ posts });
   });
@@ -72,14 +68,25 @@ exports.updatePost = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Supprimer un poste.
-exports.destroyPost = async (req, res, next) => {
-  await Post.destroy({
-    where: {
-      title: req.data.title,
-      content: req.data.content,
-      userId: req.objJson.userId,
-    },
-  });
+// //* ✅ 👉 Supprimer un poste.
+exports.delete = (req, res) => {
+  Post.destroy({
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Poste supprimé",
+        });
+      } else {
+        res.send({
+          message: "Imposible de supprimer cet post",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Post non supprimé" });
+    });
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
