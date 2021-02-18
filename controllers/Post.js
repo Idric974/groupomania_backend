@@ -71,21 +71,24 @@ exports.updatePost = async (req, res, next) => {
 // //* ✅ 👉 Supprimer un poste.
 exports.delete = (req, res) => {
   Post.destroy({
-    where: { id: id },
+    where: { postId: req.body.id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
           message: "Poste supprimé",
         });
+        console.log("✅✅✅✅✅✅✅ Poste supprimé");
       } else {
         res.send({
           message: "Imposible de supprimer cet post",
         });
+        console.log("❌ ❌ ❌ ❌ ❌ ❌ Imposible de supprimer cet post");
       }
     })
     .catch((err) => {
       res.status(500).send({ message: "Post non supprimé" });
+      console.log("CATCH ❌ ❌ ❌ ❌ ❌ ❌ Post non supprimé");
     });
 };
 

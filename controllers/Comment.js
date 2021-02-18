@@ -22,7 +22,7 @@ exports.createComment = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher tous les postes.
+//* ✅ 👉 Afficher tous les commentaire.
 exports.readAll = async (req, res, next) => {
   Comment.findAll({
     include: [
@@ -40,4 +40,28 @@ exports.readAll = async (req, res, next) => {
     }
     res.status(200).json({ comments });
   });
+};
+
+//* ✅ 👉 Supprimer un commentaire.
+exports.delete = (req, res) => {
+  Post.destroy({
+    where: { postId: req.body.id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Poste supprimé",
+        });
+        console.log("✅✅✅✅✅✅✅ Poste supprimé");
+      } else {
+        res.send({
+          message: "Imposible de supprimer cet post",
+        });
+        console.log("❌ ❌ ❌ ❌ ❌ ❌ Imposible de supprimer cet post");
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Post non supprimé" });
+      console.log("CATCH ❌ ❌ ❌ ❌ ❌ ❌ Post non supprimé");
+    });
 };
