@@ -2,7 +2,6 @@
 const db = require("../models");
 const User = db.users;
 const Comment = db.comments;
-
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Créer un commentaire.
@@ -41,6 +40,35 @@ exports.readAll = async (req, res, next) => {
     res.status(200).json({ comments });
   });
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//* ✅ 👉 Afficher un commentaire.
+exports.findOne = async (req, res) => {
+  const post = req.params.id;
+  Post.findByPk(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "error",
+      });
+    });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//* ✅ 👉 Mettre à jour un commentaire.
+exports.update = async (req, res, next) => {
+  await Post.update(
+    { lastName: "Doe" },
+    {
+      where: {
+        lastName: null,
+      },
+    }
+  );
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Supprimer un commentaire.
 exports.delete = (req, res) => {
@@ -65,3 +93,4 @@ exports.delete = (req, res) => {
       console.log("CATCH ❌ ❌ ❌ ❌ ❌ ❌ Post non supprimé");
     });
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

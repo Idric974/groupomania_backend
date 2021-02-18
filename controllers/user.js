@@ -29,7 +29,7 @@ exports.signup = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Connexion user.
+//* ✅ 👉 Connexion d'un user.
 exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
@@ -56,8 +56,7 @@ exports.login = async (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher un profil d'un utilisateur.
-
-exports.showUser = async (req, res, next) => {
+exports.read = async (req, res, next) => {
   const userId = req.body.userId;
 
   // const user = await User.findOne({ where: { id: userId } });
@@ -70,8 +69,8 @@ exports.showUser = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 mettre à jour le profil.
-exports.upDateOneUser = async (req, res, next) => {
+//* ✅ 👉 Mettre à jour le profil.
+exports.update = async (req, res, next) => {
   const profil = await User.update(
     { lastName: "Doe" },
     {
@@ -84,7 +83,7 @@ exports.upDateOneUser = async (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Supprimer un profil.
-exports.destroyOneUser = async (req, res, next) => {
+exports.destroy = async (req, res, next) => {
   await User.destroy({
     where: {
       alias: req.body.alias,

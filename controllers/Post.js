@@ -2,7 +2,6 @@
 const db = require("../models");
 const User = db.users;
 const Post = db.posts;
-
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Créer un poste.
@@ -52,7 +51,6 @@ exports.readAllPosts = async (req, res, next) => {
     res.status(200).json({ posts });
   });
 };
-
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Mettre à jour un poste.
@@ -91,5 +89,4 @@ exports.delete = (req, res) => {
       console.log("CATCH ❌ ❌ ❌ ❌ ❌ ❌ Post non supprimé");
     });
 };
-
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
