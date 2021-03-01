@@ -22,8 +22,9 @@ exports.createComment = (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher tous les commentaire.
-exports.readAll = async (req, res, next) => {
+exports.readAllcomments = async (req, res, next) => {
   Comment.findAll({
+    attributes: ["id", "comment", "createdAt", "userId"],
     include: [
       {
         model: User,
