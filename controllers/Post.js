@@ -20,18 +20,23 @@ exports.createPost = (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher un poste.
-exports.findOne = async (req, res) => {
-  const post = req.params.id;
-  Post.findByPk(id)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "error",
-      });
-    });
+exports.findOne = async (req, res, next) => {
+  Post.findOne({
+    where: { id: req.params.id },
+    include: [
+      {
+        model: User,
+        attributes: ["name", "firstname"],
+      },
+    ],
+  }).then((posts) => {
+    if (!posts) {
+      return res.status(404).json({ error: "Pas de poste trouvé" });
+    }
+    res.status(200).json({ posts });
+  });
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher tous les postes.
@@ -40,7 +45,7 @@ exports.readAllPosts = async (req, res, next) => {
     include: [
       {
         model: User,
-        attributes: ["alias"],
+        attributes: ["firstname", "name"],
       },
     ],
     order: [["createdAt", "DESC"]],
