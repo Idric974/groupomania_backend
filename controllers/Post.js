@@ -74,7 +74,13 @@ exports.updatePost = async (req, res, next) => {
 // //* ✅ 👉 Supprimer un poste.
 exports.delete = (req, res) => {
   Post.destroy({
-    where: { postId: req.body.id },
+    where: { id: req.params.id },
+    include: [
+      {
+        model: Post,
+        attributes: ["title", "content"],
+      },
+    ],
   })
     .then((num) => {
       if (num == 1) {

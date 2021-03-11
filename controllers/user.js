@@ -56,16 +56,15 @@ exports.login = async (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher un profil d'un utilisateur.
-exports.read = async (req, res, next) => {
-  const userId = req.body.userId;
-
-  // const user = await User.findOne({ where: { id: userId } });
-  // if (user === null) {
-  //   console.log("Not found!");
-  // } else {
-  //   console.log(user instanceof User);
-  //   console.log(user.title);
-  // }
+exports.findOne = (req, res, next) => {
+  User.findOne({
+    where: { id: req.params.id },
+  }).then((users) => {
+    if (!users) {
+      return res.status(404).json({ error: "Pas de user trouvé" });
+    }
+    res.status(200).json({ users });
+  });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
