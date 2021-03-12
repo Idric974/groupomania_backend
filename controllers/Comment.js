@@ -9,6 +9,7 @@ const Comment = db.comments;
 exports.createComment = (req, res, next) => {
   console.log(req.body.userId);
   const newPost = Comment.create({
+    title: req.body.title,
     comment: req.body.comment,
     userId: req.body.userId,
     postId: req.body.postId,
@@ -25,7 +26,7 @@ exports.createComment = (req, res, next) => {
 //* ✅ 👉 Afficher tous les commentaire.
 exports.readAllcomments = async (req, res, next) => {
   Comment.findAll({
-    attributes: ["id", "comment", "createdAt", "userId"],
+    attributes: ["id", "title", "comment", "createdAt", "userId"],
     include: [
       {
         model: User,
