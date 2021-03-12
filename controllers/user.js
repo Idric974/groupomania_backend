@@ -69,15 +69,28 @@ exports.findOne = (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Mettre à jour le profil.
-exports.update = async (req, res, next) => {
-  const profil = await User.update(
-    { lastName: "Doe" },
-    {
-      where: {
-        lastName: null,
-      },
-    }
-  );
+exports.updateOne = (req, res, next) => {
+  User.findOne({
+    where: { id: req.params.id },
+  })
+    .then((users) => {
+      if (!users) {
+        return res.status(404).json({ error: "Pas de user trouvé" });
+      }
+      res.status(200).json({ users: "User trouvé" });
+    })
+    .then(() => {
+      const values = {
+        alias: req.body.alias,
+        email: req.body.email,
+        name: req.body.name,
+        firstname: req.body.firstname,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
+
+      User.update(values, condition, options).then(function (upresult) {});
+    });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
