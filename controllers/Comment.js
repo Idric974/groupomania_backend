@@ -71,6 +71,33 @@ exports.update = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Signaler un commentaire.
+exports.reportComment = (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id },
+  })
+    .then((comments) => {
+      if (!comments) {
+        return res
+          .status(404)
+          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de commentaire trouvé" });
+      }
+      res
+        .status(200)
+        .json({ comments: "✔️✔️✔️ 😃➖➖➖➖➖➖► Commentaire trouvé" });
+    })
+    .then(() => {
+      const values = {
+        signale: req.body.signale,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
+
+      Comment.update(values, condition, options).then(function (upresult) {});
+    });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 //* ✅ 👉 Supprimer un commentaire.
 exports.delete = (req, res) => {
   Post.destroy({

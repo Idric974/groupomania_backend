@@ -9,6 +9,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+
+    signale: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
+    },
   });
 
   return Post;
