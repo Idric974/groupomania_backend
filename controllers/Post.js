@@ -111,13 +111,11 @@ exports.deletePost = (req, res) => {
       res.status(200).json({ posts: "✔️✔️✔️ 😃➖➖➖➖➖➖► Post trouvé" });
     })
     .then(() => {
-      const values = {
-        signale: req.body.signale,
-      };
-      const condition = { where: { id: req.params.id } };
-      options = { multi: true };
-
-      Post.destroy(values, condition, options).then(function (upresult) {});
+      Post.destroy({
+        where: { id: req.params.id },
+      }).then(() => {
+        console.log("✔️ ✔️ ✔️ 😃➖➖➖➖➖➖► Post Supprimé");
+      });
     });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
