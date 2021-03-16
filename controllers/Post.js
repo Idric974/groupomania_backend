@@ -98,32 +98,26 @@ exports.reportPost = (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 // //* ✅ 👉 Supprimer un poste.
-exports.delete = (req, res) => {
-  Post.destroy({
+exports.deletePost = (req, res) => {
+  Post.findOne({
     where: { id: req.params.id },
-    include: [
-      {
-        model: Post,
-        attributes: ["title", "content"],
-      },
-    ],
   })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "Poste supprimé",
-        });
-        console.log("✅✅✅✅✅✅✅ Poste supprimé");
-      } else {
-        res.send({
-          message: "Imposible de supprimer cet post",
-        });
-        console.log("❌ ❌ ❌ ❌ ❌ ❌ Imposible de supprimer cet post");
+    .then((posts) => {
+      if (!posts) {
+        return res
+          .status(404)
+          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de poste trouvé" });
       }
+      res.status(200).json({ posts: "✔️✔️✔️ 😃➖➖➖➖➖➖► Post trouvé" });
     })
-    .catch((err) => {
-      res.status(500).send({ message: "Post non supprimé" });
-      console.log("CATCH ❌ ❌ ❌ ❌ ❌ ❌ Post non supprimé");
+    .then(() => {
+      const values = {
+        signale: req.body.signale,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
+
+      Post.destroy(values, condition, options).then(function (upresult) {});
     });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

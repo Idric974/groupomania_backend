@@ -8,6 +8,6 @@ router.get("/findOne/:id", auth, postCtrl.findOne);
 router.get("/readAllPosts", auth, postCtrl.readAllPosts);
 router.put("/updatePost", auth, postCtrl.updatePost);
 router.post("/reportPost/:id", auth, postCtrl.reportPost);
-router.delete("/delete/:id", auth, postCtrl.delete);
+router.post("/deletePost/:id", auth, postCtrl.deletePost);
 
 module.exports = router;
