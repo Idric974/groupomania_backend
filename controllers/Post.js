@@ -58,6 +58,26 @@ exports.readAllPosts = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Afficher tous les postes.
+exports.readAllReported = async (req, res, next) => {
+  Post.findAll({
+    where: { signale: 1 },
+    include: [
+      {
+        model: User,
+        attributes: ["firstname", "name"],
+      },
+    ],
+    order: [["createdAt", "DESC"]],
+  }).then((posts) => {
+    if (!posts) {
+      return res.status(404).json({ error: "Pas de poste trouvé" });
+    }
+    res.status(200).json({ posts });
+  });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 //* ✅ 👉 Mettre à jour un poste.
 exports.updatePost = async (req, res, next) => {
   await Post.update(
