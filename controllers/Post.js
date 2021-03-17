@@ -114,7 +114,7 @@ exports.deletePost = (req, res) => {
       Post.destroy({
         where: { id: req.params.id },
       }).then(() => {
-        console.log("✔️ ✔️ ✔️ 😃➖➖➖➖➖➖► Post Supprimé");
+        console.log("✔️  ✔️  ✔️  😃➖➖➖➖➖➖► Post Supprimé");
       });
     });
 };

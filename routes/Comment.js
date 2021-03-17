@@ -8,6 +8,6 @@ router.post("/reportComment/:id", auth, commentCtrl.reportComment);
 router.get("/readAllcomments/:postId", auth, commentCtrl.readAllcomments);
 router.get("/findOne/:postId", auth, commentCtrl.findOne);
 router.delete("/update/", auth, commentCtrl.update);
-router.delete("/delete/:id", auth, commentCtrl.delete);
+router.post("/deletePost/:id", auth, commentCtrl.deletePost);
 
 module.exports = router;
