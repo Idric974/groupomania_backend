@@ -10,5 +10,6 @@ router.post("/readAllReported", auth, postCtrl.readAllReported);
 router.put("/updatePost", auth, postCtrl.updatePost);
 router.post("/reportPost/:id", auth, postCtrl.reportPost);
 router.post("/deletePost/:id", auth, postCtrl.deletePost);
+router.post("/supReportPost/:id", auth, postCtrl.supReportPost);
 
 module.exports = router;

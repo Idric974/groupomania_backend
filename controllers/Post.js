@@ -117,6 +117,31 @@ exports.reportPost = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Signaler un post.
+exports.supReportPost = (req, res, next) => {
+  Post.findOne({
+    where: { id: req.params.id },
+  })
+    .then((posts) => {
+      if (!posts) {
+        return res
+          .status(404)
+          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de poste trouvé" });
+      }
+      res.status(200).json({ posts: "✔️✔️✔️ 😃➖➖➖➖➖➖► Post trouvé" });
+    })
+    .then(() => {
+      const values = {
+        signale: req.body.signale,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
+
+      Post.update(values, condition, options).then(function (upresult) {});
+    });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 // //* ✅ 👉 Supprimer un poste.
 exports.deletePost = (req, res) => {
   Post.findOne({
