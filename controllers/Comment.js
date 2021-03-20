@@ -45,6 +45,26 @@ exports.readAllcomments = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Afficher tous les postes.
+exports.readAllReported = async (req, res, next) => {
+  Comment.findAll({
+    where: { signale: 1 },
+    include: [
+      {
+        model: User,
+        attributes: ["firstname", "name"],
+      },
+    ],
+    order: [["createdAt", "DESC"]],
+  }).then((comments) => {
+    if (!comments) {
+      return res.status(404).json({ error: "Pas de poste trouvé" });
+    }
+    res.status(200).json({ comments });
+  });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 //* ✅ 👉 Afficher un commentaire.
 exports.findOne = async (req, res, next) => {
   await Post.findOne({
@@ -100,7 +120,7 @@ exports.reportComment = (req, res, next) => {
 
 //* ✅ 👉 Supprimer un commentaire.
 
-exports.deletePost = (req, res) => {
+exports.deleteComment = (req, res) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
