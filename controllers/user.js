@@ -95,14 +95,26 @@ exports.updateOne = (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Supprimer un profil.
-exports.destroy = async (req, res, next) => {
-  await User.destroy({
-    where: {
-      alias: req.body.alias,
-      email: req.body.email,
-      firstname: req.body.firstname,
-      name: req.body.name,
-    },
-  });
+// //* ✅ 👉 Supprimer un poste.
+exports.deleteUser = (req, res) => {
+  User.findOne({
+    where: { id: req.params.id },
+  })
+    .then((users) => {
+      if (!users) {
+        return res
+          .status(404)
+          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de user trouvé" });
+      }
+      res.status(200).json({ users: "✔️✔️✔️ 😃➖➖➖➖➖➖► user trouvé" });
+    })
+    .then(() => {
+      User.destroy({
+        where: { id: req.params.id },
+      }).then(() => {
+        console.log("✔️  ✔️  ✔️  😃➖➖➖➖➖➖► user Supprimé");
+      });
+    });
 };
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

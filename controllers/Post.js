@@ -78,18 +78,28 @@ exports.readAllReported = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Mettre à jour un poste.
-exports.updatePost = async (req, res, next) => {
-  await Post.update(
-    { lastName: "Doe" },
-    {
-      where: {
-        lastName: null,
-      },
-    }
-  );
-};
+//* ✅ 👉 Mettre à jour un post.
+exports.updatePost = (req, res, next) => {
+  Post.findOne({
+    where: { id: req.params.id },
+  })
+    .then((posts) => {
+      if (!posts) {
+        return res.status(404).json({ error: "Pas de post trouvé" });
+      }
+      res.status(200).json({ posts: "Post trouvé" });
+    })
+    .then(() => {
+      const values = {
+        title: req.body.title,
+        content: req.body.content,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
 
+      Post.update(values, condition, options).then(function (upresult) {});
+    });
+};
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Signaler un post.

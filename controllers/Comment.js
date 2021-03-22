@@ -78,16 +78,40 @@ exports.findOne = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Mettre à jour un commentaire.
-exports.update = async (req, res, next) => {
-  await Post.update(
-    { lastName: "Doe" },
-    {
-      where: {
-        lastName: null,
-      },
+//* ✅ 👉 Afficher un commentaire.
+exports.findOneComment = async (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id },
+  }).then((comments) => {
+    if (!comments) {
+      return res.status(404).json({ error: "Pas de user trouvé" });
     }
-  );
+    res.status(200).json({ comments });
+  });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//* ✅ 👉 Mettre à jour un commentaire.
+exports.updateComment = (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id },
+  })
+    .then((comments) => {
+      if (!comments) {
+        return res.status(404).json({ error: "Pas de post trouvé" });
+      }
+      res.status(200).json({ comments: "Post trouvé" });
+    })
+    .then(() => {
+      const values = {
+        title: req.body.title,
+        content: req.body.comment,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
+
+      Comment.update(values, condition, options).then(function (upresult) {});
+    });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
