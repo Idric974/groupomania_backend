@@ -11,5 +11,6 @@ router.get("/findOne/:postId", auth, commentCtrl.findOne);
 router.get("/findOneComment/:id", auth, commentCtrl.findOneComment);
 router.post("/updateComment/:id", auth, commentCtrl.updateComment);
 router.post("/deleteComment/:id", auth, commentCtrl.deleteComment);
+router.post("/supReportComment/:id", auth, commentCtrl.supReportComment);
 
 module.exports = router;

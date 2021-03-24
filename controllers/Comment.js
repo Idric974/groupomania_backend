@@ -142,6 +142,33 @@ exports.reportComment = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Supprimer le signalement d'un commentaire
+exports.supReportComment = (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id },
+  })
+    .then((comments) => {
+      if (!comments) {
+        return res
+          .status(404)
+          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de commentaire trouvé" });
+      }
+      res
+        .status(200)
+        .json({ comments: "✔️✔️✔️ 😃➖➖➖➖➖➖► commentaire trouvé" });
+    })
+    .then(() => {
+      const values = {
+        signale: req.body.signale,
+      };
+      const condition = { where: { id: req.params.id } };
+      options = { multi: true };
+
+      Comment.update(values, condition, options).then(function (upresult) {});
+    });
+};
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 //* ✅ 👉 Supprimer un commentaire.
 
 exports.deleteComment = (req, res) => {
