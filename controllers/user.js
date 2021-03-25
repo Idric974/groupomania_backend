@@ -119,17 +119,16 @@ exports.deleteUser = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 exports.userId = (req, res) => {
-  const token = req.params.id;
+  const token = req.params.token;
 
   const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-  console.log(decodedToken);
 
-  console.log("✔️  ✔️ ✔️  userId ====> ", decodedToken.userId);
+  console.log("✔️  ✔️ ✔️  New userId ====> ", decodedToken.userId);
 
   const userId = decodedToken.userId;
 
   res.status(200).json({
-    status: "✔️  ✔️ ✔️  userId ====> ",
+    status: "✔️  ✔️ ✔️  New userId ====> ",
     data: userId,
   });
 };
