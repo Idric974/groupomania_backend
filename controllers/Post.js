@@ -40,7 +40,7 @@ exports.findOne = async (req, res, next) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Afficher tous les postes.
-exports.readAllPosts = async (req, res, next) => {
+exports.readAllPosts = (req, res, next) => {
   Post.findAll({
     include: [
       {

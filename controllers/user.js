@@ -120,6 +120,7 @@ exports.deleteUser = (req, res) => {
 
 exports.userId = (req, res) => {
   const token = req.params.token;
+  console.log(token);
 
   const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
 
