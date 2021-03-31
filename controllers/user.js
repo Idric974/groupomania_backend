@@ -134,3 +134,23 @@ exports.userId = (req, res) => {
 };
 
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+exports.userIdAxios = async (req, res) => {
+  try {
+    const token = req.params.token;
+
+    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+
+    console.log("✔️  Logged User Id ====> ", decodedToken.userId);
+
+    const userId = decodedToken.userId;
+
+    const axRes = await userId;
+
+    res.json(axRes);
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
