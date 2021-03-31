@@ -128,7 +128,7 @@ exports.userId = (req, res) => {
   const userId = decodedToken.userId;
 
   res.status(200).json({
-    status: "✔️  ✔️ ✔️  New userId ====> ",
+    status: "✔️  ✔️ ✔️  UserId from backend ====> ",
     data: userId,
   });
 };
