@@ -10,4 +10,6 @@ router.post("/updateOne/:id", auth, userCtrl.updateOne);
 router.post("/deleteUser/:id", auth, userCtrl.deleteUser);
 router.get("/userId/:token", auth, userCtrl.userId);
 
+router.get("/userInfo/:token", auth, userCtrl.userInfo);
+
 module.exports = router;

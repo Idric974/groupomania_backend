@@ -135,6 +135,27 @@ exports.userId = (req, res) => {
 
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+exports.userInfo = (req, res) => {
+  const token = req.params.token;
+
+  const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+
+  console.log("✔️  USER INFO ====> ", decodedToken.userId);
+
+  const userId = decodedToken.userId;
+
+  User.findOne({
+    where: { id: userId },
+  }).then((users) => {
+    if (!users) {
+      return res.status(404).json({ error: "Pas de user trouvé" });
+    }
+    res.status(200).json({ users });
+  });
+};
+
+//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
 exports.userIdAxios = async (req, res) => {
   try {
     const token = req.params.token;
