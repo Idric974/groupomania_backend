@@ -77,7 +77,7 @@ exports.updateOne = (req, res, next) => {
       if (!users) {
         return res.status(404).json({ error: "Pas de user trouvé" });
       }
-      res.status(200).json({ users: "User trouvé" });
+      res.status(200).json({ users: "User updated" });
     })
     .then(() => {
       const values = {

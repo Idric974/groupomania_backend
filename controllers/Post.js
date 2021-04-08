@@ -134,9 +134,7 @@ exports.supReportPost = (req, res, next) => {
   })
     .then((posts) => {
       if (!posts) {
-        return res
-          .status(404)
-          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de poste trouvé" });
+        return res.status(404).json({ error: "Post delected" });
       }
       res.status(200).json({ posts: "✔️✔️✔️ 😃➖➖➖➖➖➖► Post trouvé" });
     })
