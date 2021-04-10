@@ -5,16 +5,15 @@ const User = db.users;
 const Comment = db.comments;
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Créer un commentaire.
-exports.createComment = (req, res, next) => {
-  console.log(req.body.userId);
-  const newPost = Comment.create({
+//* ✅ 👉 Create a comment.
+exports.createComment = (req, res) => {
+  const newComment = Comment.create({
     title: req.body.title,
     comment: req.body.comment,
     userId: req.body.userId,
     postId: req.body.postId,
   })
-    .then(() => res.status(200).json({ message: "Commentaire créé !" }))
+    .then(() => res.status(200).json({ message: "Commentaire créé ! 👍" }))
     .catch((error) => {
       console.log(error);
 
@@ -23,8 +22,8 @@ exports.createComment = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher tous les commentaire.
-exports.readAllcomments = async (req, res, next) => {
+//* ✅ 👉 Show all comments.
+exports.readAllcomments = async (req, res) => {
   Comment.findAll({
     attributes: ["id", "title", "comment", "createdAt", "userId"],
     include: [
@@ -38,15 +37,15 @@ exports.readAllcomments = async (req, res, next) => {
     where: { postId: req.params.postId },
   }).then((comments) => {
     if (!comments) {
-      return res.status(404).json({ error: "Pas de commentaire trouvé" });
+      return res.status(404).json({ error: "Pas de commentaire trouvé 😥" });
     }
     res.status(200).json({ comments });
   });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher tous les postes.
-exports.readAllReported = async (req, res, next) => {
+//* ✅ 👉 Show all reported comments.
+exports.readAllReported = async (res) => {
   Comment.findAll({
     where: { signale: 1 },
     include: [
@@ -58,15 +57,15 @@ exports.readAllReported = async (req, res, next) => {
     order: [["createdAt", "DESC"]],
   }).then((comments) => {
     if (!comments) {
-      return res.status(404).json({ error: "Pas de poste trouvé" });
+      return res.status(404).json({ error: "Pas de poste trouvé 😥" });
     }
     res.status(200).json({ comments });
   });
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher un commentaire.
-exports.findOne = async (req, res, next) => {
+//* ✅ 👉 Edit one comment.
+exports.findOne = async (req, res) => {
   await Post.findOne({
     where: { postId: req.params.postId },
   }).then((comments) => {
@@ -78,8 +77,8 @@ exports.findOne = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher un commentaire.
-exports.findOneComment = async (req, res, next) => {
+//* ✅ 👉 Edit one comment.
+exports.findOneComment = async (req, res) => {
   Comment.findOne({
     where: { id: req.params.id },
   }).then((comments) => {
@@ -91,8 +90,8 @@ exports.findOneComment = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Mettre à jour un commentaire.
-exports.updateComment = (req, res, next) => {
+//* ✅ 👉 Update one comment.
+exports.updateComment = (req, res) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
@@ -115,20 +114,20 @@ exports.updateComment = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Signaler un commentaire.
-exports.reportComment = (req, res, next) => {
+//* ✅ 👉 Report one comment.
+exports.reportComment = (req, res) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
     .then((comments) => {
       if (!comments) {
-        return res
-          .status(404)
-          .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de commentaire trouvé" });
+        return res.status(404).json({
+          error: "❌❌❌ 😥➖➖➖➖➖➖➤ Pas de commentaire trouvé",
+        });
       }
       res
         .status(200)
-        .json({ comments: "✔️✔️✔️ 😃➖➖➖➖➖➖► Commentaire trouvé" });
+        .json({ comments: "✔️✔️✔️ 😃➖➖➖➖➖➖➤ Commentaire Signalé" });
     })
     .then(() => {
       const values = {
@@ -142,8 +141,8 @@ exports.reportComment = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Supprimer le signalement d'un commentaire
-exports.supReportComment = (req, res, next) => {
+//* ✅ 👉 Remove flagging from a comment
+exports.supReportComment = (req, res) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
@@ -169,7 +168,7 @@ exports.supReportComment = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Supprimer un commentaire.
+//* ✅ 👉 Delete one comment.
 
 exports.deleteComment = (req, res) => {
   Comment.findOne({

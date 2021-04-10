@@ -2,10 +2,11 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
 const User = db.users;
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Créer un user.
-exports.signup = (req, res, next) => {
+//* ✅ 👉 Creat an user.
+exports.signup = (req, res) => {
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -27,10 +28,11 @@ exports.signup = (req, res, next) => {
       return res.status(500).json({ error });
     });
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Connexion d'un user.
-exports.login = async (req, res, next) => {
+//* ✅ 👉 Log an user.
+exports.login = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
     if (user === null) {
@@ -53,10 +55,12 @@ exports.login = async (req, res, next) => {
     return res.status(500).json({ error });
   }
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher un profil d'un utilisateur.
-exports.findOne = (req, res, next) => {
+//* ✅ 👉 Show user profil.
+
+exports.findOne = (req, res) => {
   User.findOne({
     where: { id: req.params.id },
   }).then((users) => {
@@ -66,10 +70,12 @@ exports.findOne = (req, res, next) => {
     res.status(200).json({ users });
   });
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Mettre à jour le profil.
-exports.updateOne = (req, res, next) => {
+//* ✅ 👉 Update profil.
+
+exports.updateOne = (req, res) => {
   User.findOne({
     where: { id: req.params.id },
   })
@@ -92,10 +98,11 @@ exports.updateOne = (req, res, next) => {
       User.update(values, condition, options).then(function (upresult) {});
     });
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Supprimer un profil.
-// //* ✅ 👉 Supprimer un poste.
+//* ✅ 👉 Delete user.
+
 exports.deleteUser = (req, res) => {
   User.findOne({
     where: { id: req.params.id },
@@ -116,7 +123,10 @@ exports.deleteUser = (req, res) => {
       });
     });
 };
+
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+//* ✅ 👉 Find userId.
 
 exports.userId = (req, res) => {
   const token = req.params.token;
@@ -135,6 +145,7 @@ exports.userId = (req, res) => {
 
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
+//* ✅ 👉 Find userId.
 exports.userInfo = (req, res) => {
   const token = req.params.token;
 
@@ -153,25 +164,3 @@ exports.userInfo = (req, res) => {
     res.status(200).json({ users });
   });
 };
-
-//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-exports.userIdAxios = async (req, res) => {
-  try {
-    const token = req.params.token;
-
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
-
-    console.log("✔️  Logged User Id ====> ", decodedToken.userId);
-
-    const userId = decodedToken.userId;
-
-    const axRes = await userId;
-
-    res.json(axRes);
-  } catch (err) {
-    res.send(err);
-  }
-};
-
-//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖

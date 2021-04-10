@@ -4,8 +4,8 @@ const User = db.users;
 const Post = db.posts;
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Créer un poste.
-exports.createPost = (req, res, next) => {
+//* ✅ 👉 Creat post.
+exports.createPost = (req, res) => {
   const newPost = Post.create({
     title: req.body.title,
     content: req.body.content,
@@ -19,8 +19,8 @@ exports.createPost = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher un poste.
-exports.findOne = async (req, res, next) => {
+//* ✅ 👉 Show one post.
+exports.findOne = async (req, res) => {
   Post.findOne({
     where: { id: req.params.id },
     include: [
@@ -39,8 +39,8 @@ exports.findOne = async (req, res, next) => {
 
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher tous les postes.
-exports.readAllPosts = (req, res, next) => {
+//* ✅ 👉 Show all posts.
+exports.readAllPosts = (res) => {
   Post.findAll({
     include: [
       {
@@ -58,8 +58,8 @@ exports.readAllPosts = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Afficher tous les postes.
-exports.readAllReported = async (req, res, next) => {
+//* ✅ 👉 Show all reported posts.
+exports.readAllReported = async (res) => {
   Post.findAll({
     where: { signale: 1 },
     include: [
@@ -78,8 +78,8 @@ exports.readAllReported = async (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Mettre à jour un post.
-exports.updatePost = (req, res, next) => {
+//* ✅ 👉 Update a post.
+exports.updatePost = (req, res) => {
   Post.findOne({
     where: { id: req.params.id },
   })
@@ -102,8 +102,8 @@ exports.updatePost = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Signaler un post.
-exports.reportPost = (req, res, next) => {
+//* ✅ 👉 Report à post.
+exports.reportPost = (req, res) => {
   Post.findOne({
     where: { id: req.params.id },
   })
@@ -127,8 +127,8 @@ exports.reportPost = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-//* ✅ 👉 Signaler un post.
-exports.supReportPost = (req, res, next) => {
+//* ✅ 👉 Sup Report post.
+exports.supReportPost = (req, res) => {
   Post.findOne({
     where: { id: req.params.id },
   })
@@ -150,7 +150,7 @@ exports.supReportPost = (req, res, next) => {
 };
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-// //* ✅ 👉 Supprimer un poste.
+//* ✅ 👉 Delete a post.
 exports.deletePost = (req, res) => {
   Post.findOne({
     where: { id: req.params.id },
@@ -171,4 +171,3 @@ exports.deletePost = (req, res) => {
       });
     });
 };
-//*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
