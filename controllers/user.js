@@ -6,7 +6,7 @@ const User = db.users;
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Creat an user.
-exports.signup = (req, res) => {
+exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Log an user.
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
     if (user === null) {
@@ -60,7 +60,7 @@ exports.login = async (req, res) => {
 
 //* ✅ 👉 Show user profil.
 
-exports.findOne = (req, res) => {
+exports.findOne = (req, res, next) => {
   User.findOne({
     where: { id: req.params.id },
   }).then((users) => {
@@ -75,7 +75,7 @@ exports.findOne = (req, res) => {
 
 //* ✅ 👉 Update profil.
 
-exports.updateOne = (req, res) => {
+exports.updateOne = (req, res, next) => {
   User.findOne({
     where: { id: req.params.id },
   })
@@ -103,7 +103,7 @@ exports.updateOne = (req, res) => {
 
 //* ✅ 👉 Delete user.
 
-exports.deleteUser = (req, res) => {
+exports.deleteUser = (req, res, next) => {
   User.findOne({
     where: { id: req.params.id },
   })
@@ -128,7 +128,7 @@ exports.deleteUser = (req, res) => {
 
 //* ✅ 👉 Find userId.
 
-exports.userId = (req, res) => {
+exports.userId = (req, res, next) => {
   const token = req.params.token;
 
   const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
@@ -146,7 +146,7 @@ exports.userId = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Find userId.
-exports.userInfo = (req, res) => {
+exports.userInfo = (req, res, next) => {
   const token = req.params.token;
 
   const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");

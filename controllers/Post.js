@@ -5,7 +5,7 @@ const Post = db.posts;
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Creat post.
-exports.createPost = (req, res) => {
+exports.createPost = (req, res, next) => {
   const newPost = Post.create({
     title: req.body.title,
     content: req.body.content,
@@ -20,7 +20,7 @@ exports.createPost = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Show one post.
-exports.findOne = async (req, res) => {
+exports.findOne = async (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
     include: [
@@ -40,7 +40,7 @@ exports.findOne = async (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Show all posts.
-exports.readAllPosts = (res) => {
+exports.readAllPosts = (req, res, next) => {
   Post.findAll({
     include: [
       {
@@ -59,7 +59,7 @@ exports.readAllPosts = (res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Show all reported posts.
-exports.readAllReported = async (res) => {
+exports.readAllReported = async (req, res, next) => {
   Post.findAll({
     where: { signale: 1 },
     include: [
@@ -79,7 +79,7 @@ exports.readAllReported = async (res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Update a post.
-exports.updatePost = (req, res) => {
+exports.updatePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
   })
@@ -103,7 +103,7 @@ exports.updatePost = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Report à post.
-exports.reportPost = (req, res) => {
+exports.reportPost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
   })
@@ -128,7 +128,7 @@ exports.reportPost = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Sup Report post.
-exports.supReportPost = (req, res) => {
+exports.supReportPost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
   })
@@ -151,7 +151,7 @@ exports.supReportPost = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Delete a post.
-exports.deletePost = (req, res) => {
+exports.deletePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
   })

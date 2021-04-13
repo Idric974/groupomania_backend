@@ -6,7 +6,7 @@ const Comment = db.comments;
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Create a comment.
-exports.createComment = (req, res) => {
+exports.createComment = (req, res, next) => {
   const newComment = Comment.create({
     title: req.body.title,
     comment: req.body.comment,
@@ -23,7 +23,7 @@ exports.createComment = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Show all comments.
-exports.readAllcomments = async (req, res) => {
+exports.readAllcomments = async (req, res, next) => {
   Comment.findAll({
     attributes: ["id", "title", "comment", "createdAt", "userId"],
     include: [
@@ -45,7 +45,7 @@ exports.readAllcomments = async (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Show all reported comments.
-exports.readAllReported = async (res) => {
+exports.readAllReported = async (req, res, next) => {
   Comment.findAll({
     where: { signale: 1 },
     include: [
@@ -57,7 +57,7 @@ exports.readAllReported = async (res) => {
     order: [["createdAt", "DESC"]],
   }).then((comments) => {
     if (!comments) {
-      return res.status(404).json({ error: "Pas de poste trouvé 😥" });
+      return res.status(404).json({ error: "Pas de poste trouvé" });
     }
     res.status(200).json({ comments });
   });
@@ -65,7 +65,7 @@ exports.readAllReported = async (res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Edit one comment.
-exports.findOne = async (req, res) => {
+exports.findOne = async (req, res, next) => {
   await Post.findOne({
     where: { postId: req.params.postId },
   }).then((comments) => {
@@ -78,7 +78,7 @@ exports.findOne = async (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Edit one comment.
-exports.findOneComment = async (req, res) => {
+exports.findOneComment = async (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
   }).then((comments) => {
@@ -91,7 +91,7 @@ exports.findOneComment = async (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Update one comment.
-exports.updateComment = (req, res) => {
+exports.updateComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
@@ -115,7 +115,7 @@ exports.updateComment = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Report one comment.
-exports.reportComment = (req, res) => {
+exports.reportComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
@@ -142,7 +142,7 @@ exports.reportComment = (req, res) => {
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 //* ✅ 👉 Remove flagging from a comment
-exports.supReportComment = (req, res) => {
+exports.supReportComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
@@ -170,7 +170,7 @@ exports.supReportComment = (req, res) => {
 
 //* ✅ 👉 Delete one comment.
 
-exports.deleteComment = (req, res) => {
+exports.deleteComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
   })
