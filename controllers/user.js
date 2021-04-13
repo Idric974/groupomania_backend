@@ -149,7 +149,7 @@ exports.userId = (req, res, next) => {
 exports.userInfo = (req, res, next) => {
   const token = req.params.token;
 
-  const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+  const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
 
   console.log("✔️  USER INFO ====> ", decodedToken.userId);
 
