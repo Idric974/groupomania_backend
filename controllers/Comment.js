@@ -104,7 +104,7 @@ exports.updateComment = (req, res, next) => {
     .then(() => {
       const values = {
         title: req.body.title,
-        content: req.body.comment,
+        comment: req.body.comment,
       };
       const condition = { where: { id: req.params.id } };
       options = { multi: true };
