@@ -97,9 +97,9 @@ exports.updateComment = (req, res, next) => {
   })
     .then((comments) => {
       if (!comments) {
-        return res.status(404).json({ error: "Pas de post trouvé" });
+        return res.status(404).json({ error: "Pas de commentaire trouvé" });
       }
-      res.status(200).json({ comments: "Post trouvé" });
+      res.status(200).json({ comments: "Commentaire trouvé" });
     })
     .then(() => {
       const values = {
@@ -182,7 +182,7 @@ exports.deleteComment = (req, res, next) => {
       }
       res
         .status(200)
-        .json({ comments: "✔️✔️✔️ 😃➖➖➖➖➖➖► Commentaire trouvé" });
+        .json({ comments: "✔️✔️✔️ 😃➖➖➖➖➖➖► Commentaire Supprimé" });
     })
     .then(() => {
       Comment.destroy({
