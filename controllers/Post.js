@@ -161,7 +161,7 @@ exports.deletePost = (req, res, next) => {
           .status(404)
           .json({ error: "❌❌❌ 😥➖➖➖➖➖➖► Pas de poste trouvé" });
       }
-      res.status(200).json({ posts: "✔️✔️✔️ 😃➖➖➖➖➖➖► Post trouvé" });
+      res.status(200).json({ posts: "✔️✔️✔️ 😃➖➖➖➖➖➖► Post supprimé" });
     })
     .then(() => {
       Post.destroy({
