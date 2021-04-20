@@ -1,5 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("user", {
+    alias: {
+      type: Sequelize.STRING,
+      unique: true,
+      allowNull: false,
+    },
+
     email: {
       type: Sequelize.STRING,
       unique: true,

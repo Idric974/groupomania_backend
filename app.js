@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const userRoutes = require("./routes/User");
+const postRoutes = require("./routes/Post");
+const commentRoutes = require("./routes/Comment");
 
 const app = express();
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -37,7 +39,8 @@ app.use(bodyParser.json());
 
 //* ✅ 👉 Routes pricipales de l'application
 app.use("/api/user", userRoutes);
-
+app.use("/api/post", postRoutes);
+app.use("/api/comment", commentRoutes);
 //*➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖
 
 module.exports = app;

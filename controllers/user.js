@@ -11,6 +11,7 @@ exports.signup = (req, res, next) => {
     .hash(req.body.password, 10)
     .then((hash) => {
       User.create({
+        alias: req.body.alias,
         email: req.body.email,
         password: hash,
         name: req.body.name,
@@ -86,6 +87,7 @@ exports.updateOne = (req, res, next) => {
     })
     .then(() => {
       const values = {
+        alias: req.body.alias,
         email: req.body.email,
         name: req.body.name,
         firstname: req.body.firstname,
